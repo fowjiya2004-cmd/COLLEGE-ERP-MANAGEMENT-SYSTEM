@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Welcome to College ERP</h1>
+    <p class="welcome-text">Hello, {{ session.username }}! You are logged in as {{ session.role }}.</p>
+    
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ student_count }}</h3>
+                <p>Total Students</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ faculty_count }}</h3>
+                <p>Faculty Members</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ course_count }}</h3>
+                <p>Courses</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-sections">
+        <div class="section">
+            <h2>Recent Students</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in recent_students %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.first_name }} {{ student.last_name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.department }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <a href="{{ url_for('students') }}?show_form=true" class="action-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Add Student
+                </a>
+                <a href="{{ url_for('faculty') }}?show_form=true" class="action-btn">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Add Faculty
+                </a>
+                <a href="{{ url_for('courses') }}?show_form=true" class="action-btn">
+                    <i class="fas fa-book"></i>
+                    Add Course
+                </a>
+                <a href="{{ url_for('attendance') }}?show_form=true" class="action-btn">
+                    <i class="fas fa-clipboard-check"></i>
+                    Mark Attendance
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
